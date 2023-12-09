@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { RegisterPersonPage } from './components/RegisterPersonPage';
-import FinishSendEmail, {  } from './components/FinishSendEmail';
+import FinishSendEmail from './components/FinishSendEmail';
 import { Person } from './Person';
 
 const STAGE_REGISTER_PERSONS = 0;
