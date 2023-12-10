@@ -48,9 +48,11 @@ const FinishSendEmail: React.FC<FinishSendEmailProps> = ({ persons, onEmailSent 
         const person = shuffledPersons[i];
         const recipient = getNextRecipientFor(i, shuffledRecipients);
 
-        const body = `Hello, ${person.name} (${person.email}),
-                      You have to buy a gift 🎁 for: ${recipient.name} (${recipient.email}).
-                      Happy Christmas!! 🎅🎄`;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const body = `Hello, ${person.name} (${person.email}),
+          You have to buy a gift 🎁 for: ${recipient.name} (${recipient.email}).
+          Happy Christmas!! 🎅🎄`;
+
 
         await sendEmail(person.email, recipient.name);
       }
