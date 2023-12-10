@@ -25,10 +25,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "node your-custom-build-script.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prebuild": "chmod -R 755 /vercel/path0"
+    "prebuild": "echo 'Custom prebuild step'"
   },
   "eslintConfig": {
     "extends": [
