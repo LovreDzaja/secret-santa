@@ -78,23 +78,24 @@ export const RegisterPersonPage: React.FC<{
 
   const generateRandomAssignments = (participants: Person[]): number[] | null => {
     const participantsCount = participants.length;
-
+  
     // Create an array [0, 1, ..., n-1] to represent the indices of participants
     const indices = Array.from({ length: participantsCount }, (_, index) => index);
-
-    // Shuffle the indices randomly
-    const shuffledIndices = indices.sort(() => Math.random() - 0.5);
-
+  
+    // Shuffle a copy of the indices array randomly
+    const shuffledIndices = [...indices].sort(() => Math.random() - 0.5);
+  
     // Check if each person gets a unique receiver
     for (let i = 0; i < participantsCount; i++) {
-      if (shuffledIndices[i] === i) {
+      if (shuffledIndices[i] === indices[i]) {
         // If any person gets themselves, shuffle again
         return generateRandomAssignments(participants);
       }
     }
-
+  
     return shuffledIndices;
   };
+  
 
   return (
     <div className="App">
@@ -102,30 +103,36 @@ export const RegisterPersonPage: React.FC<{
         <img src={logo} className="App-logo" alt="logo" />
 
         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-          <TextField
-            sx={{ m: 2 }}
-            label="Name"
-            variant="standard"
-            value={currentName}
-            onChange={(event) => setCurrentName(event.target.value)}
-          />
+        <TextField
+          sx={{ m: 2 }}
+          label="Name"
+          variant="standard"
+          value={currentName}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setCurrentName(event.target.value)
+          }
+        />
 
-          <TextField
-            sx={{ m: 2 }}
-            label="Email"
-            variant="standard"
-            value={currentEmail}
-            onChange={(event) => setCurrentEmail(event.target.value)}
-          />
+        <TextField
+          sx={{ m: 2 }}
+          label="Email"
+          variant="standard"
+          value={currentEmail}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setCurrentEmail(event.target.value)
+          }
+        />
+
           <AddCircleRounded sx={{ m: 2 }} onClick={handleAddPerson} />
         </Box>
 
         {persons.map((person, index) => (
-          <DeletableChips
-            key={index}
-            name={person.name}
-            handleDelete={() => handleDeletePerson(index)}
-          />
+            <DeletableChips
+              key={index}
+              name={person.name}
+              handleDelete={() => handleDeletePerson(index)}
+            />
+
         ))}
 
         <Button variant="contained" onClick={prepareAndContinue}>
