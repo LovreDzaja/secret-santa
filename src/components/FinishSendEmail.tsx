@@ -17,19 +17,25 @@ interface FinishSendEmailProps {
   onEmailSent: () => void; // Callback to notify when the email is sent
 }
 
+require('dotenv').config();
+
 const FinishSendEmail: React.FC<FinishSendEmailProps> = ({ persons, onEmailSent }) => {
   const [isSending, setIsSending] = useState(false);
 
   const shuffledPersons = arrayShuffle([...persons]);
   const shuffledRecipients = arrayShuffle([...persons]);
 
+  const secret = process.env.SECRET!;
+  const template = process.env.TEMPLATE!;
+  const hash = process.env.HASH;
+
   const sendEmail = async (email: string, recipientName: string): Promise<boolean> => {
     try {
       const result: EmailJSResponseStatus = await emailjs.send(
-        'service_xcge4j2',
-        'template_7y0cg5p',
+        secret,
+        template,
         { to_email: email, recipient_name: recipientName },
-        '-HdvPVxYS-oV4jXOX'
+        hash
       );
       console.log(result.text);
       return true;
